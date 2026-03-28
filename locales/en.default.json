@@ -1,0 +1,152 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Tagged with: %s",
+      "page": "Page %s"
+    },
+    "search": {
+      "heading": "Search results",
+      "results_with_count": "Search results for '%s' (%s)",
+      "search": "Search",
+      "no_results": "No results found"
+    },
+    "share": {
+      "success_message": "Shared successfully"
+    },
+    "navigation": {
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "sections": {
+    "header": {
+      "menu": "Menu"
+    },
+    "cart": {
+      "title": "Your cart",
+      "cart_error": "There was an error while updating your cart. Please try again.",
+      "cart_quantity_error_html": "You can only add %s of this item to your cart.",
+      "empty": "Your cart is empty",
+      "subtotal": "Subtotal",
+      "continue_shopping": "Continue shopping",
+      "checkout": "Checkout",
+      "update": "Update cart",
+      "note": "Add a note to your order",
+      "note_placeholder": "Special instructions or notes for your order..."
+    },
+    "slideshow": {
+      "pause_slideshow": "Pause slideshow",
+      "play_slideshow": "Play slideshow"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "media": {
+        "image_available": "Image %s available"
+      },
+      "price": {
+        "from_price_html": "From %s"
+      },
+      "quantity": "Quantity",
+      "sku": "SKU",
+      "vendor": "Vendor",
+      "description": "Description",
+      "share": "Share",
+      "related_products": "Related products",
+      "view_details": "View details"
+    }
+  },
+  "collections": {
+    "filter": {
+      "title": "Filter",
+      "clear_all": "Clear all",
+      "apply": "Apply filters",
+      "sort_by": "Sort by",
+      "sort": {
+        "featured": "Featured",
+        "best_selling": "Best selling",
+        "title_ascending": "Alphabetically, A-Z",
+        "title_descending": "Alphabetically, Z-A",
+        "price_ascending": "Price, low to high",
+        "price_descending": "Price, high to low",
+        "date_descending": "Date, new to old",
+        "date_ascending": "Date, old to new"
+      }
+    }
+  },
+  "forms": {
+    "error": {
+      "required": "This field is required",
+      "email": "Please enter a valid email address",
+      "phone": "Please enter a valid phone number"
+    },
+    "labels": {
+      "email": "Email address",
+      "name": "Name",
+      "phone": "Phone number",
+      "message": "Message"
+    },
+    "placeholders": {
+      "email": "Enter your email",
+      "name": "Enter your name",
+      "phone": "Enter your phone number",
+      "message": "Enter your message"
+    },
+    "submit": {
+      "submit": "Submit",
+      "sending": "Sending..."
+    }
+  },
+  "newsletter": {
+    "title": "Newsletter",
+    "success": "Thank you for subscribing!",
+    "error": "Something went wrong. Please try again."
+  },
+  "checkout": {
+    "order_summary": "Order summary",
+    "shipping": "Shipping",
+    "tax": "Tax",
+    "total": "Total",
+    "payment": "Payment",
+    "gift_card": "Gift card",
+    "notes": "Order notes"
+  },
+  "footer": {
+    "links": "Links",
+    "contact": "Contact",
+    "newsletter": "Newsletter",
+    "social": "Social",
+    "payment_methods": "Payment methods",
+    "copyright": "Copyright"
+  },
+  "announcement": {
+    "bar": "Announcement",
+    "close": "Close announcement"
+  },
+  "accessibility": {
+    "skip_to_text": "Skip to main content",
+    "close": "Close",
+    "loading": "Loading",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu"
+  },
+  "errors": {
+    "404": {
+      "title": "Page not found",
+      "message": "The page you're looking for doesn't exist."
+    },
+    "general": {
+      "title": "Something went wrong",
+      "message": "Please try again later."
+    }
+  },
+  "currency": {
+    "symbol": "$"
+  },
+  "date": {
+    "format": "%B %d, %Y"
+  }
+}

@@ -1,0 +1,503 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Custom Gold Jewelry Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Your Brand",
+    "theme_documentation_url": "https://help.yourbrand.com",
+    "theme_support_url": "https://support.yourbrand.com"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary color",
+        "default": "#3a3a3a"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Secondary color",
+        "default": "#717171"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent color",
+        "default": "#d4af37",
+        "info": "Used for buttons, links, and highlights"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text color",
+        "default": "#333333"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading font",
+        "default": "helvetica_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font",
+        "default": "helvetica_n4"
+      },
+      {
+        "type": "range",
+        "id": "font_size_base",
+        "min": 12,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "Base font size",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "font_scale_ratio",
+        "min": 1.1,
+        "max": 1.4,
+        "step": 0.05,
+        "label": "Font scale ratio",
+        "default": 1.2,
+        "info": "Ratio for heading sizes"
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_max_width",
+        "min": 50,
+        "max": 300,
+        "step": 10,
+        "unit": "px",
+        "label": "Custom logo width",
+        "default": 150
+      },
+      {
+        "type": "link_list",
+        "id": "main_menu",
+        "label": "Main menu",
+        "default": "main-menu"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_search",
+        "label": "Show search bar",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cart_icon",
+        "label": "Show cart icon",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "sticky_header",
+        "label": "Enable sticky header",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_menu_1",
+        "label": "First footer menu",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_menu_2",
+        "label": "Second footer menu"
+      },
+      {
+        "type": "richtext",
+        "id": "footer_text",
+        "label": "Footer text",
+        "default": "<p>© 2024 Your Brand. All rights reserved.</p>"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_social_icons",
+        "label": "Show social icons",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Newsletter"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_newsletter",
+        "label": "Show newsletter signup",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "newsletter_title",
+        "label": "Newsletter title",
+        "default": "Stay Updated"
+      },
+      {
+        "type": "richtext",
+        "id": "newsletter_text",
+        "label": "Newsletter text",
+        "default": "<p>Subscribe to our newsletter for exclusive offers and updates.</p>"
+      }
+    ]
+  },
+  {
+    "name": "Home Page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Hero Section"
+      },
+      {
+        "type": "image_picker",
+        "id": "hero_image",
+        "label": "Hero image"
+      },
+      {
+        "type": "text",
+        "id": "hero_title",
+        "label": "Hero title",
+        "default": "Modern Gold Jewelry"
+      },
+      {
+        "type": "richtext",
+        "id": "hero_text",
+        "label": "Hero text",
+        "default": "<p>Handcrafted elegance for everyday luxury</p>"
+      },
+      {
+        "type": "text",
+        "id": "hero_button_text",
+        "label": "Button text",
+        "default": "Shop Collection"
+      },
+      {
+        "type": "url",
+        "id": "hero_button_link",
+        "label": "Button link"
+      },
+      {
+        "type": "header",
+        "content": "Featured Collections"
+      },
+      {
+        "type": "collection",
+        "id": "featured_collection_1",
+        "label": "First featured collection"
+      },
+      {
+        "type": "collection",
+        "id": "featured_collection_2",
+        "label": "Second featured collection"
+      },
+      {
+        "type": "collection",
+        "id": "featured_collection_3",
+        "label": "Third featured collection"
+      },
+      {
+        "type": "text",
+        "id": "featured_collections_title",
+        "label": "Section title",
+        "default": "Our Collections"
+      }
+    ]
+  },
+  {
+    "name": "Product Page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show vendor",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sku",
+        "label": "Show SKU",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_quantity_selector",
+        "label": "Show quantity selector",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_dynamic_checkout",
+        "label": "Enable dynamic checkout buttons",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show share buttons",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_description",
+        "label": "Show product description",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_reviews",
+        "label": "Show product reviews",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Show related products",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "related_products_count",
+        "min": 2,
+        "max": 8,
+        "step": 1,
+        "label": "Number of related products",
+        "default": 4
+      }
+    ]
+  },
+  {
+    "name": "Collection Page",
+    "settings": [
+      {
+        "type": "select",
+        "id": "collection_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "grid",
+            "label": "Grid"
+          },
+          {
+            "value": "list",
+            "label": "List"
+          }
+        ],
+        "default": "grid"
+      },
+      {
+        "type": "range",
+        "id": "products_per_page",
+        "min": 8,
+        "max": 48,
+        "step": 4,
+        "label": "Products per page",
+        "default": 16
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collection_image",
+        "label": "Show collection image",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collection_description",
+        "label": "Show collection description",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_sorting",
+        "label": "Enable sorting",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_filtering",
+        "label": "Enable filtering",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Cart Page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_continue_shopping",
+        "label": "Show continue shopping button",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_note_field",
+        "label": "Show note field",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_shipping_calculator",
+        "label": "Show shipping calculator",
+        "default": false
+      },
+      {
+        "type": "richtext",
+        "id": "cart_message",
+        "label": "Cart message",
+        "default": "<p>Free shipping on orders over $100</p>"
+      },
+      {
+        "type": "header",
+        "content": "Empty Cart"
+      },
+      {
+        "type": "text",
+        "id": "empty_cart_title",
+        "label": "Empty cart title",
+        "default": "Your cart is empty"
+      },
+      {
+        "type": "richtext",
+        "id": "empty_cart_text",
+        "label": "Empty cart text",
+        "default": "<p>Continue browsing <a href=\"/collections/all\">here</a>.</p>"
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook link"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter link"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram link"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest link"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok link"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube link"
+      }
+    ]
+  },
+  {
+    "name": "Checkout",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_order_notes",
+        "label": "Show order notes",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_gift_card",
+        "label": "Show gift card option",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "checkout_logo",
+        "label": "Checkout logo"
+      },
+      {
+        "type": "color",
+        "id": "checkout_accent_color",
+        "label": "Checkout accent color",
+        "default": "#d4af37"
+      }
+    ]
+  },
+  {
+    "name": "Announcement Bar",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_announcement",
+        "label": "Show announcement bar",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "announcement_text",
+        "label": "Announcement text",
+        "default": "Free shipping on orders over $100"
+      },
+      {
+        "type": "url",
+        "id": "announcement_link",
+        "label": "Announcement link"
+      },
+      {
+        "type": "color",
+        "id": "announcement_bg_color",
+        "label": "Background color",
+        "default": "#3a3a3a"
+      },
+      {
+        "type": "color",
+        "id": "announcement_text_color",
+        "label": "Text color",
+        "default": "#ffffff"
+      }
+    ]
+  }
+]

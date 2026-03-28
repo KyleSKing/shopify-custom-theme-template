@@ -1,0 +1,38 @@
+{
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar"
+    },
+    "header": {
+      "type": "header"
+    },
+    "hero": {
+      "type": "hero"
+    },
+    "featured-collections": {
+      "type": "featured-collections"
+    },
+    "featured-products": {
+      "type": "featured-products"
+    },
+    "testimonials": {
+      "type": "testimonials"
+    },
+    "newsletter": {
+      "type": "newsletter"
+    },
+    "footer": {
+      "type": "footer"
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header",
+    "hero",
+    "featured-collections",
+    "featured-products",
+    "testimonials",
+    "newsletter",
+    "footer"
+  ]
+}

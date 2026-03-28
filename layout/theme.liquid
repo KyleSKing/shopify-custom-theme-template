@@ -1,0 +1,335 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_accent }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- capture seo_title -%}
+      {%- if template == 'search' and search.performed == true -%}
+        {{ 'general.search.heading' | t: count: search.results_count }}: {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+      {%- else -%}
+        {{ page_title }}
+      {%- endif -%}
+      {%- if current_tags -%}
+        {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+      {%- endif -%}
+      {%- if current_page != 1 -%}
+        &ndash; {{ 'general.meta.page' | t: page: current_page }}
+      {%- endif -%}
+      {%- assign escaped_page_title = page_title | escape -%}
+      {%- unless escaped_page_title contains shop.name -%}
+        &ndash; {{ shop.name }}
+      {%- endunless -%}
+    {%- endcapture -%}
+    <title>{{ seo_title | strip }}</title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {% render 'meta-tags' %}
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="{{ 'global.css' | asset_url }}" as="style">
+    <link rel="preload" href="{{ 'global.js' | asset_url }}" as="script">
+
+    <!-- CSS -->
+    {{ 'global.css' | asset_url | stylesheet_tag }}
+
+    <!-- Custom CSS from theme settings -->
+    {% style %}
+      :root {
+        --color-primary: {{ settings.color_primary }};
+        --color-secondary: {{ settings.color_secondary }};
+        --color-accent: {{ settings.color_accent }};
+        --color-background: {{ settings.color_background }};
+        --color-text: {{ settings.color_text }};
+      }
+      
+      {% if settings.font_heading != blank %}
+        {% assign heading_font = settings.font_heading | split: '_' %}
+        {% assign heading_font_weight = heading_font.last %}
+        {% assign heading_font_family = heading_font.first | replace: '-', ' ' %}
+        :root {
+          --font-heading: {{ heading_font_family }}, {{ settings.font_heading.fallback_families }};
+          --font-heading-weight: {{ heading_font_weight }};
+        }
+      {% endif %}
+      
+      {% if settings.font_body != blank %}
+        {% assign body_font = settings.font_body | split: '_' %}
+        {% assign body_font_weight = body_font.last %}
+        {% assign body_font_family = body_font.first | replace: '-', ' ' %}
+        :root {
+          --font-body: {{ body_font_family }}, {{ settings.font_body.fallback_families }};
+          --font-body-weight: {{ body_font_weight }};
+        }
+      {% endif %}
+      
+      body {
+        font-size: {{ settings.font_size_base }}px;
+      }
+      
+      h1 { font-size: calc({{ settings.font_size_base }}px * {{ settings.font_scale_ratio }} * {{ settings.font_scale_ratio }} * {{ settings.font_scale_ratio }}); }
+      h2 { font-size: calc({{ settings.font_size_base }}px * {{ settings.font_scale_ratio }} * {{ settings.font_scale_ratio }}); }
+      h3 { font-size: calc({{ settings.font_size_base }}px * {{ settings.font_scale_ratio }}); }
+    {% endstyle %}
+
+    <!-- JavaScript -->
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+
+    {{ content_for_header }}
+
+    <!-- Theme-specific scripts -->
+    <script>
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}'
+      };
+
+      window.cartStrings = {
+        error: `{{ 'sections.cart.cart_error' | t }}`,
+        quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
+      };
+
+      window.variantStrings = {
+        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+        soldOut: `{{ 'products.product.sold_out' | t }}`,
+        unavailable: `{{ 'products.product.unavailable' | t }}`,
+      };
+
+      window.accessibilityStrings = {
+        imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
+        shareSuccess: `{{ 'general.share.success_message' | t }}`,
+        pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
+        playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
+      };
+    </script>
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": {{ shop.name | json }},
+        {% if settings.logo %}
+          "logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},
+        {% endif %}
+        "sameAs": [
+          {{ settings.social_twitter_link | json }},
+          {{ settings.social_facebook_link | json }},
+          {{ settings.social_instagram_link | json }},
+          {{ settings.social_pinterest_link | json }},
+          {{ settings.social_tiktok_link | json }},
+          {{ settings.social_youtube_link | json }}
+        ],
+        "url": {{ shop.url | append: page.url | json }}
+      }
+    </script>
+
+    {%- if template.name == 'index' -%}
+      <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "WebSite",
+          "name": {{ shop.name | json }},
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {{ shop.url | append: "/search?q={search_term_string}" | json }},
+            "query-input": "required name=search_term_string"
+          },
+          "url": {{ shop.url | append: page.url | json }}
+        }
+      </script>
+    {%- endif -%}
+  </head>
+
+  <body class="template-{{ template.name | handle }} {% if template.suffix %}template-{{ template.name | handle }}-{{ template.suffix }}{% endif %}">
+    <!-- Skip to content link for accessibility -->
+    <a href="#MainContent" class="skip-to-content-link sr-only" data-skip-to-content>
+      {{ "accessibility.skip_to_text" | t }}
+    </a>
+
+    <!-- Announcement bar -->
+    {%- if settings.show_announcement -%}
+      {% section 'announcement-bar' %}
+    {%- endif -%}
+
+    <!-- Header -->
+    {% section 'header' %}
+
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    <!-- Footer -->
+    {% section 'footer' %}
+
+    <!-- Hidden elements for accessibility -->
+    <div id="a11y-announcement" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Modal containers -->
+    <div id="SearchModal" class="modal modal--search" role="dialog" aria-modal="true" aria-label="{{ 'general.search.search' | t }}">
+      <div class="modal__inner">
+        <div class="modal__content">
+          <button type="button" class="modal__close" aria-label="{{ 'accessibility.close' | t }}">
+            {% render 'icon-close' %}
+          </button>
+          {%- if settings.predictive_search_enabled -%}
+            <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
+          {%- endif -%}
+            <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
+              <div class="field">
+                <input class="search__input field__input"
+                  id="Search-In-Modal"
+                  type="search"
+                  name="q"
+                  value=""
+                  placeholder="{{ 'general.search.search' | t }}"
+                  {%- if settings.predictive_search_enabled -%}
+                    role="combobox"
+                    aria-expanded="false"
+                    aria-owns="predictive-search-results-list"
+                    aria-controls="predictive-search-results-list"
+                    aria-haspopup="listbox"
+                    aria-autocomplete="list"
+                    autocorrect="off"
+                    autocomplete="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                  {%- endif -%}
+                >
+                <label class="field__label" for="Search-In-Modal">{{ 'general.search.search' | t }}</label>
+                <input type="hidden" name="options[prefix]" value="last">
+                <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+                  {% render 'icon-search' %}
+                </button>
+              </div>
+
+              {%- if settings.predictive_search_enabled -%}
+                <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
+                  <div class="predictive-search__loading-state">
+                    <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                      <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                    </svg>
+                  </div>
+                </div>
+
+                <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+              {%- endif -%}
+            </form>
+          {%- if settings.predictive_search_enabled -%}
+            </predictive-search>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    <div id="CartDrawer" class="drawer drawer--cart" role="dialog" aria-modal="true" aria-label="{{ 'sections.cart.title' | t }}" data-cart-drawer>
+      <div class="drawer__inner">
+        <div class="drawer__header">
+          <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
+          <button class="drawer__close" type="button" aria-label="{{ 'accessibility.close' | t }}">
+            {% render 'icon-close' %}
+          </button>
+        </div>
+        <cart-drawer>
+          <div class="drawer__content">
+            <div class="cart-drawer__items" data-cart-drawer-items></div>
+            <div class="cart-drawer__footer" data-cart-drawer-footer></div>
+          </div>
+        </cart-drawer>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      // Initialize theme
+      document.addEventListener('DOMContentLoaded', function() {
+        // Set up event listeners for modals
+        const searchModal = document.getElementById('SearchModal');
+        const cartDrawer = document.getElementById('CartDrawer');
+        
+        // Search modal triggers
+        document.querySelectorAll('[data-search-toggle]').forEach(button => {
+          button.addEventListener('click', () => {
+            searchModal.classList.add('active');
+            document.getElementById('Search-In-Modal').focus();
+          });
+        });
+        
+        // Cart drawer triggers
+        document.querySelectorAll('[data-cart-toggle]').forEach(button => {
+          button.addEventListener('click', () => {
+            cartDrawer.classList.add('active');
+          });
+        });
+        
+        // Close buttons
+        document.querySelectorAll('.modal__close, .drawer__close').forEach(button => {
+          button.addEventListener('click', () => {
+            button.closest('.modal, .drawer').classList.remove('active');
+          });
+        });
+        
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            document.querySelectorAll('.modal.active, .drawer.active').forEach(el => {
+              el.classList.remove('active');
+            });
+          }
+        });
+      });
+    </script>
+
+    {%- if template.name == 'product' -%}
+      <script type="application/ld+json">
+        {
+          "@context": "http://schema.org/",
+          "@type": "Product",
+          "name": {{ product.title | json }},
+          "url": {{ shop.url | append: product.url | json }},
+          {% if product.featured_media %}
+            "image": [
+              {{ product.featured_media | image_url: width: product.featured_media.width | prepend: "https:" | json }}
+            ],
+          {% endif %}
+          "description": {{ product.description | strip_html | json }},
+          {% if product.selected_or_first_available_variant.sku != blank %}
+            "sku": {{ product.selected_or_first_available_variant.sku | json }},
+          {% endif %}
+          "brand": {
+            "@type": "Brand",
+            "name": {{ product.vendor | json }}
+          },
+          "offers": [
+            {% for variant in product.variants %}
+              {
+                "@type" : "Offer",
+                {% if variant.sku != blank %}
+                  "sku": {{ variant.sku | json }},
+                {% endif %}
+                "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+                "price" : {{ variant.price | money_without_currency | json }},
+                "priceCurrency" : {{ cart.currency.iso_code | json }},
+                "url" : {{ shop.url | append: variant.url | json }}
+              }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+          ]
+        }
+      </script>
+    {%- endif -%}
+  </body>
+</html>

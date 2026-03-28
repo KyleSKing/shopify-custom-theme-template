@@ -1,0 +1,130 @@
+# Shopify Theme .gitignore
+# Version: 1.0.0
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Shopify specific
+config/settings_data.json  # Contains store-specific settings
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build artifacts
+dist/
+build/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Shopify CLI
+.env
+.devcontainer/
+
+# Test files
+*.spec.js
+*.test.js
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+
+# Documentation
+_site/
+.sass-cache/
+
+# Package lock files (keep one)
+#package-lock.json  # Comment out if using npm
+#yarn.lock          # Comment out if using yarn
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Coverage directory used by tools like istanbul
+coverage/
+.nyc_output/
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Vue.js dist/
+public/
+
+# Svelte
+.svelte-kit/
+
+# Rollup cache
+rollup.config.js.cache
+
+# Storybook
+storybook-static/
+
+# Documentation
+docs/_build/
+
+# MkDocs
+site/
+
+# Jekyll
+.jekyll-cache/
+
+# Hugo
+resources/_gen/
+
+# Docusaurus
+.docusaurus/
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# macOS files
+*.icloud
