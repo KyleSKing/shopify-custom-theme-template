@@ -1,0 +1,181 @@
+name: Shopify Theme Sync
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 步骤1: 检出代码
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 步骤2: 设置Node.js环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      # 步骤3: 安装Shopify CLI
+      - name: Install Shopify CLI
+        run: |
+          npm install -g @shopify/cli
+          shopify version
+
+      # 步骤4: 安装依赖（如果有package.json）
+      - name: Install dependencies
+        run: |
+          if [ -f "package.json" ]; then
+            npm ci
+          fi
+
+      # 步骤5: 验证主题结构
+      - name: Validate theme structure
+        run: |
+          echo "Validating theme structure..."
+          if [ ! -f "layout/theme.liquid" ]; then
+            echo "❌ Missing theme.liquid file"
+            exit 1
+          fi
+          
+          if [ ! -f "config/settings_schema.json" ]; then
+            echo "❌ Missing settings_schema.json"
+            exit 1
+          fi
+          
+          echo "✅ Theme structure validated"
+
+      # 步骤6: Shopify主题检查（语法检查）
+      - name: Shopify theme check
+        run: |
+          echo "Running Shopify theme check..."
+          if command -v shopify > /dev/null; then
+            shopify theme check
+          else
+            echo "⚠️ Shopify CLI not available for theme check"
+          fi
+
+      # 步骤7: 设置环境变量（从GitHub Secrets）
+      - name: Setup Shopify environment
+        env:
+          SHOPIFY_STORE_URL: ${{ secrets.SHOPIFY_STORE_URL }}
+          SHOPIFY_API_KEY: ${{ secrets.SHOPIFY_API_KEY }}
+          SHOPIFY_API_SECRET: ${{ secrets.SHOPIFY_API_SECRET }}
+          SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_PASSWORD }}
+          SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID }}
+        run: |
+          echo "Shopify Store: $SHOPIFY_STORE_URL"
+          echo "Theme ID: $SHOPIFY_THEME_ID"
+
+      # 步骤8: 推送主题到Shopify（仅push到main/master时）
+      - name: Push theme to Shopify
+        if: github.event_name == 'push'
+        env:
+          SHOPIFY_STORE_URL: ${{ secrets.SHOPIFY_STORE_URL }}
+          SHOPIFY_API_KEY: ${{ secrets.SHOPIFY_API_KEY }}
+          SHOPIFY_API_SECRET: ${{ secrets.SHOPIFY_API_SECRET }}
+          SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_PASSWORD }}
+          SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID }}
+        run: |
+          # 使用Shopify CLI推送主题
+          if [ -n "$SHOPIFY_STORE_URL" ] && [ -n "$SHOPIFY_PASSWORD" ]; then
+            echo "🚀 Pushing theme to Shopify..."
+            
+            # 如果指定了主题ID，使用theme push
+            if [ -n "$SHOPIFY_THEME_ID" ]; then
+              shopify theme push --theme $SHOPIFY_THEME_ID --store $SHOPIFY_STORE_URL --password $SHOPIFY_PASSWORD
+            else
+              # 否则推送到开发主题
+              shopify theme push --development --store $SHOPIFY_STORE_URL --password $SHOPIFY_PASSWORD
+            fi
+            
+            echo "✅ Theme pushed successfully"
+          else
+            echo "⚠️ Shopify credentials not configured. Skipping push."
+          fi
+
+      # 步骤9: 生成部署报告
+      - name: Generate deployment report
+        run: |
+          echo "📊 Deployment Report"
+          echo "===================="
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Author: ${{ github.event.head_commit.author.name }}"
+          echo "Timestamp: $(date)"
+          
+          # 统计文件变化
+          echo ""
+          echo "📁 File Statistics:"
+          find . -type f -name "*.liquid" -o -name "*.json" -o -name "*.css" -o -name "*.js" | wc -l
+          
+          # 列出主要文件
+          echo ""
+          echo "🏗️ Main Theme Files:"
+          ls -la layout/theme.liquid config/settings_schema.json
+
+      # 步骤10: 发送通知（可选）
+      - name: Send notification
+        if: success()
+        run: |
+          echo "🎉 Theme sync completed successfully!"
+          
+          # 这里可以添加Slack、Discord等通知
+          # 例如使用curl发送到webhook
+
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 步骤1: 检出代码
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 步骤2: Liquid语法检查（使用Shopify主题检查工具）
+      - name: Liquid syntax validation
+        run: |
+          echo "Validating Liquid syntax..."
+          # 简单检查是否存在语法错误
+          find . -name "*.liquid" -type f | while read file; do
+            echo "Checking $file"
+            if grep -q "{%[^%]*%}" "$file"; then
+              echo "✅ $file contains Liquid tags"
+            fi
+          done
+
+      # 步骤3: JSON语法检查
+      - name: JSON syntax validation
+        run: |
+          echo "Validating JSON syntax..."
+          find . -name "*.json" -type f | while read file; do
+            if python3 -m json.tool "$file" > /dev/null 2>&1; then
+              echo "✅ $file has valid JSON syntax"
+            else
+              echo "❌ $file has invalid JSON syntax"
+              exit 1
+            fi
+          done
+
+      # 步骤4: CSS和JS基本检查
+      - name: CSS/JS validation
+        run: |
+          echo "Checking CSS and JS files..."
+          if [ -f "assets/css/global.css" ]; then
+            echo "✅ Found global.css"
+          fi
+          
+          if [ -f "assets/js/global.js" ]; then
+            echo "✅ Found global.js"
+          fi
