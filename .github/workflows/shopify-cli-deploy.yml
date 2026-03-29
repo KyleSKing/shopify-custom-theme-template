@@ -1,0 +1,71 @@
+name: Éclat Doréa Shopify CLI Deploy
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Install Shopify CLI
+      run: |
+        npm install -g @shopify/cli @shopify/theme
+        shopify version
+    
+    - name: Verify essential files
+      run: |
+        echo "🔍 验证Éclat Doréa主题核心文件..."
+        echo "layout/theme.liquid: $(ls layout/theme.liquid 2>/dev/null && echo ✅ || echo ❌)"
+        echo "config/settings_schema.json: $(ls config/settings_schema.json 2>/dev/null && echo ✅ || echo ❌)"
+        echo "assets/css/global.css: $(ls assets/css/global.css 2>/dev/null && echo ✅ || echo ❌)"
+        echo "snippets/logo.liquid: $(ls snippets/logo.liquid 2>/dev/null && echo ✅ || echo ❌)"
+        echo "logo_header.svg: $(ls logo_header.svg 2>/dev/null && echo ✅ || echo ❌)"
+        echo "logo_footer.svg: $(ls logo_footer.svg 2>/dev/null && echo ✅ || echo ❌)"
+        echo "logo_favicon.svg: $(ls logo_favicon.svg 2>/dev/null && echo ✅ || echo ❌)"
+    
+    - name: Deploy to Shopify using CLI
+      env:
+        SHOPIFY_STORE: eclat-dorea.myshopify.com
+        SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_PASSWORD }}
+      run: |
+        echo "🚀 部署Éclat Doréa主题到Shopify..."
+        echo "店铺: $SHOPIFY_STORE"
+        
+        # 使用Shopify CLI部署
+        shopify theme push \
+          --development \
+          --store $SHOPIFY_STORE \
+          --password $SHOPIFY_PASSWORD \
+          --path . \
+          --force
+        
+        echo "✅ 主题部署完成"
+    
+    - name: Generate deployment report
+      run: |
+        echo "🎉 Éclat Doréa主题自动化部署完成!"
+        echo "=================================="
+        echo ""
+        echo "主题信息:"
+        echo "- 名称: Luxury Gold Jewelry Theme v2.0"
+        echo "- 品牌: Éclat Doréa collection"
+        echo "- 店铺: eclat-dorea.myshopify.com"
+        echo "- 时间: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+        echo ""
+        echo "🎨 设计特色:"
+        echo "- 配色: Premium Dark (#1C1917) + Gold Accent (#CA8A04)"
+        echo "- 字体: Cormorant (法式优雅) + Montserrat (现代易读)"
+        echo "- Logo: ÉCLAT DORÉA 完整品牌系统"
+        echo ""
+        echo "🔗 立即预览:"
+        echo "https://eclat-dorea.myshopify.com"
+        echo ""
+        echo "✅ GitHub Actions + Shopify CLI自动化部署成功!"
