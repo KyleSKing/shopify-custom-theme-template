@@ -78,11 +78,11 @@ jobs:
     - name: Deploy to Shopify
       env:
         SHOPIFY_STORE_URL: ${{ secrets.SHOPIFY_STORE_URL }}
-        SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_PASSWORD }}
+        SHOPIFY_ACCESS_TOKEN: ${{ secrets.SHOPIFY_ACCESS_TOKEN }}
       run: |
         echo "🚀 开始部署Éclat Doréa主题到Shopify..."
         
-        if [ -z "$SHOPIFY_STORE_URL" ] || [ -z "$SHOPIFY_PASSWORD" ]; then
+        if [ -z "$SHOPIFY_STORE_URL" ] || [ -z "$SHOPIFY_ACCESS_TOKEN" ]; then
           echo "⚠️  GitHub Secrets未配置，跳过自动部署"
           echo ""
           echo "📋 手动部署指南:"
@@ -97,10 +97,12 @@ jobs:
         echo "店铺: $SHOPIFY_STORE_URL"
         echo "开始部署..."
         
-        # 尝试使用Shopify CLI部署
+        # 尝试使用Shopify CLI部署（使用access token）
         if command -v shopify > /dev/null; then
           echo "使用Shopify CLI部署..."
-          shopify theme push --development --store $SHOPIFY_STORE_URL --password $SHOPIFY_PASSWORD --path . || {
+          # 设置环境变量供Shopify CLI使用
+          export SHOPIFY_ACCESS_TOKEN="$SHOPIFY_ACCESS_TOKEN"
+          shopify theme push --development --store $SHOPIFY_STORE_URL --path . || {
             echo "❌ Shopify CLI部署失败"
             echo "尝试备选方案..."
           }
@@ -131,8 +133,8 @@ jobs:
         echo ""
         echo "🚀 部署状态"
         echo "-----------"
-        if [ -n "$SHOPIFY_STORE_URL" ] && [ -n "$SHOPIFY_PASSWORD" ]; then
-          echo "自动部署: ✅ 已配置"
+        if [ -n "$SHOPIFY_STORE_URL" ] && [ -n "$SHOPIFY_ACCESS_TOKEN" ]; then
+          echo "自动部署: ✅ 已配置 (使用Access Token)"
           echo "部署方式: Shopify CLI"
         else
           echo "自动部署: ⚠️ 未配置"
@@ -167,8 +169,8 @@ jobs:
         echo "🎊 Éclat Doréa主题部署完成摘要"
         echo "================================"
         echo ""
-        if [ -n "$SHOPIFY_STORE_URL" ] && [ -n "$SHOPIFY_PASSWORD" ]; then
-          echo "✅ 自动部署已执行"
+        if [ -n "$SHOPIFY_STORE_URL" ] && [ -n "$SHOPIFY_ACCESS_TOKEN" ]; then
+          echo "✅ 自动部署已执行 (使用Access Token)"
           echo "主题已推送到: eclat-dorea.myshopify.com"
           echo ""
           echo "立即验证:"
