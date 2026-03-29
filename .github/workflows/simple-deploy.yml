@@ -1,0 +1,49 @@
+name: Simple Éclat Doréa Theme Deploy
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Install Shopify CLI
+      run: |
+        npm install -g @shopify/cli @shopify/theme
+    
+    - name: Validate files
+      run: |
+        echo "🔍 Validating theme files..."
+        echo "layout/theme.liquid: $(ls layout/theme.liquid 2>/dev/null && echo ✅ || echo ❌)"
+        echo "config/settings_schema.json: $(ls config/settings_schema.json 2>/dev/null && echo ✅ || echo ❌)"
+        echo "assets/css/global.css: $(ls assets/css/global.css 2>/dev/null && echo ✅ || echo ❌)"
+        echo "snippets/logo.liquid: $(ls snippets/logo.liquid 2>/dev/null && echo ✅ || echo ❌)"
+        echo "logo_header.svg: $(ls logo_header.svg 2>/dev/null && echo ✅ || echo ❌)"
+    
+    - name: Deploy to Shopify
+      env:
+        SHOPIFY_STORE_URL: ${{ secrets.SHOPIFY_STORE_URL }}
+        SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_PASSWORD }}
+      run: |
+        echo "🚀 Deploying to: $SHOPIFY_STORE_URL"
+        shopify theme push \
+          --development \
+          --store $SHOPIFY_STORE_URL \
+          --password $SHOPIFY_PASSWORD \
+          --path . \
+          --force
+    
+    - name: Success message
+      run: |
+        echo "🎉 Éclat Doréa主题部署完成!"
+        echo "店铺: ${{ secrets.SHOPIFY_STORE_URL }}"
+        echo "时间: $(date)"
+        echo "🔗 预览: https://${{ secrets.SHOPIFY_STORE_URL }}"
