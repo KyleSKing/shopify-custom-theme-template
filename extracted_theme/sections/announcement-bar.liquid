@@ -1,0 +1,73 @@
+{%- if section.settings.show_announcement -%}
+  <style>
+    .announcement-bar {
+      background-color: {{ section.settings.announcement_bg_color }};
+      color: {{ section.settings.announcement_text_color }};
+    }
+    
+    .announcement-bar__link:hover {
+      opacity: 0.8;
+    }
+  </style>
+
+  <div class="announcement-bar" role="region" aria-label="{{ 'announcement.bar' | t }}">
+    <div class="announcement-bar__inner container">
+      {%- if section.settings.announcement_link != blank -%}
+        <a href="{{ section.settings.announcement_link }}" class="announcement-bar__link">
+          {{ section.settings.announcement_text }}
+        </a>
+      {%- else -%}
+        <p class="announcement-bar__text">
+          {{ section.settings.announcement_text }}
+        </p>
+      {%- endif -%}
+      
+      <button class="announcement-bar__close" aria-label="{{ 'announcement.close' | t }}">
+        {% render 'icon-close' %}
+      </button>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('.announcement-bar__close').addEventListener('click', function() {
+      this.closest('.announcement-bar').style.display = 'none';
+    });
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "Free shipping on orders over $100"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement link"
+    },
+    {
+      "type": "color",
+      "id": "announcement_bg_color",
+      "label": "Background color",
+      "default": "#3a3a3a"
+    },
+    {
+      "type": "color",
+      "id": "announcement_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    }
+  ]
+}
+{% endschema %}

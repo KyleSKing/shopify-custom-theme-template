@@ -1,0 +1,48 @@
+{
+  "name": "shopify-custom-theme-template",
+  "version": "1.0.0",
+  "description": "A modern Shopify custom theme template for gold jewelry stores",
+  "author": "Your Brand",
+  "license": "MIT",
+  "scripts": {
+    "dev": "shopify theme dev",
+    "build": "shopify theme build",
+    "push": "shopify theme push",
+    "check": "shopify theme check",
+    "package": "shopify theme package",
+    "test": "echo \"No tests specified\"",
+    "lint": "echo \"No linting specified\""
+  },
+  "devDependencies": {
+    "@shopify/cli": "^3.0.0",
+    "@shopify/theme": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": [
+    "shopify",
+    "theme",
+    "liquid",
+    "ecommerce",
+    "gold",
+    "jewelry"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_USERNAME/shopify-custom-theme-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/shopify-custom-theme-template/issues"
+  },
+  "homepage": "https://github.com/YOUR_USERNAME/shopify-custom-theme-template#readme",
+  "files": [
+    "assets/",
+    "config/",
+    "layout/",
+    "locales/",
+    "sections/",
+    "snippets/",
+    "templates/"
+  ]
+}
