@@ -1,0 +1,100 @@
+<!-- Header for Éclat Doréa -->
+<header class="header">
+  <div class="header__inner page-width">
+    <!-- Logo -->
+    <div class="header__logo">
+      <a href="{{ routes.root_url }}" class="header__logo-link">
+        <img src="{{ 'logo_header.svg' | asset_url }}" 
+             alt="{{ shop.name }}" 
+             class="header__logo-image"
+             width="200" 
+             height="60">
+      </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="header__nav" role="navigation" aria-label="Main">
+      <ul class="header__menu">
+        <li><a href="{{ routes.root_url }}">Home</a></li>
+        <li><a href="{{ routes.collections_url }}">Collections</a></li>
+        <li><a href="{{ routes.all_products_collection_url }}">Products</a></li>
+        <li><a href="/pages/about">About</a></li>
+        <li><a href="/pages/contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Icons -->
+    <div class="header__icons">
+      <a href="{{ routes.search_url }}" class="header__icon">
+        <svg width="20" height="20" viewBox="0 0 20 20">
+          <path d="M19.7 18.3l-4.2-4.2c1.1-1.4 1.7-3.1 1.7-5C17.2 4.9 14.3 2 10.8 2S4.4 4.9 4.4 8.4s2.9 6.4 6.4 6.4c1.9 0 3.6-.7 4.9-1.8l4.2 4.2c.2.2.4.3.7.3s.5-.1.7-.3c.4-.4.4-1 0-1.4zM6.4 8.4c0-2.4 2-4.4 4.4-4.4s4.4 2 4.4 4.4-2 4.4-4.4 4.4-4.4-2-4.4-4.4z"/>
+        </svg>
+      </a>
+      <a href="{{ routes.cart_url }}" class="header__icon">
+        <svg width="20" height="20" viewBox="0 0 20 20">
+          <path d="M18.9 4.6c-.2-.3-.5-.5-.8-.5H4.3l-.4-1.8c-.1-.5-.5-.8-1-.8H1c-.6 0-1 .4-1 1s.4 1 1 1h1.4l2.8 11.2c.1.5.5.8 1 .8h10c.5 0 .9-.3 1-.8l2.6-9c.1-.3 0-.6-.2-.8zM6.3 13.8l-1.1-4.4h10.8l-1.5 4.4H6.3z"/>
+          <circle cx="7" cy="17" r="1.5"/>
+          <circle cx="15" cy="17" r="1.5"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    background: var(--color-background, #FAFAF9);
+    border-bottom: 1px solid var(--color-border, #E5E7EB);
+    padding: 1.5rem 0;
+  }
+  
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .header__logo-link {
+    display: block;
+  }
+  
+  .header__logo-image {
+    height: 60px;
+    width: auto;
+  }
+  
+  .header__menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 3rem;
+  }
+  
+  .header__menu a {
+    color: var(--color-primary, #1C1917);
+    text-decoration: none;
+    font-family: 'Cormorant', serif;
+    font-weight: 500;
+    font-size: 1.8rem;
+    transition: color 0.3s ease;
+  }
+  
+  .header__menu a:hover {
+    color: var(--color-accent, #CA8A04);
+  }
+  
+  .header__icons {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .header__icon {
+    color: var(--color-primary, #1C1917);
+    transition: color 0.3s ease;
+  }
+  
+  .header__icon:hover {
+    color: var(--color-accent, #CA8A04);
+  }
+</style>
