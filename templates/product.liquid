@@ -1,0 +1,195 @@
+{% comment %}Éclat Doréa Product Page{% endcomment %}
+
+{% section 'announcement-bar' %}
+{% section 'header' %}
+
+<main class="main-content page-width">
+  <div class="product-container">
+    <!-- Product Images -->
+    <div class="product-images">
+      {% if product.featured_image %}
+        <div class="product-main-image">
+          <img src="{{ product.featured_image | img_url: '800x' }}" 
+               alt="{{ product.featured_image.alt | escape }}"
+               loading="lazy">
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Product Info -->
+    <div class="product-info">
+      <h1 class="product-title">{{ product.title }}</h1>
+      
+      <div class="product-price">
+        {% if product.compare_at_price > product.price %}
+          <span class="price--compare">{{ product.compare_at_price | money }}</span>
+          <span class="price--sale">{{ product.price | money }}</span>
+        {% else %}
+          <span class="price--regular">{{ product.price | money }}</span>
+        {% endif %}
+      </div>
+
+      {% if product.variants.size > 1 %}
+        <div class="product-variants">
+          <select name="id" id="ProductSelect-{{ section.id }}">
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}"
+                {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
+                {% unless variant.available %}disabled{% endunless %}>
+                {{ variant.title }}
+                {% if variant.available %} - {{ variant.price | money }}{% else %} - Sold Out{% endif %}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+
+      <!-- Add to Cart -->
+      <div class="product-form">
+        <form action="/cart/add" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <div class="quantity-selector">
+            <button type="button" class="quantity-minus">-</button>
+            <input type="number" name="quantity" value="1" min="1" class="quantity-input">
+            <button type="button" class="quantity-plus">+</button>
+          </div>
+          <button type="submit" name="add" class="button button--primary" {% unless product.available %}disabled{% endunless %}>
+            {% if product.available %}
+              Add to Cart
+            {% else %}
+              Sold Out
+            {% endif %}
+          </button>
+        </form>
+      </div>
+
+      <!-- Product Description -->
+      <div class="product-description">
+        {{ product.description }}
+      </div>
+    </div>
+  </div>
+</main>
+
+{% section 'footer' %}
+
+<style>
+  .product-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    padding: 4rem 0;
+  }
+
+  .product-main-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+  }
+
+  .product-title {
+    font-family: 'Cormorant', serif;
+    font-size: 4rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: var(--color-primary, #1C1917);
+  }
+
+  .product-price {
+    margin-bottom: 3rem;
+  }
+
+  .price--compare {
+    text-decoration: line-through;
+    color: #9CA3AF;
+    margin-right: 1rem;
+    font-size: 2rem;
+  }
+
+  .price--sale,
+  .price--regular {
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--color-accent, #CA8A04);
+  }
+
+  .product-variants select {
+    width: 100%;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border, #E5E7EB);
+    border-radius: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem;
+    margin-bottom: 3rem;
+  }
+
+  .product-form {
+    margin-bottom: 3rem;
+  }
+
+  .quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .quantity-minus,
+  .quantity-plus {
+    width: 4rem;
+    height: 4rem;
+    border: 1px solid var(--color-border, #E5E7EB);
+    background: var(--color-background, #FAFAF9);
+    border-radius: 0.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .quantity-input {
+    width: 6rem;
+    height: 4rem;
+    text-align: center;
+    border: 1px solid var(--color-border, #E5E7EB);
+    border-radius: 0.5rem;
+    font-size: 1.8rem;
+  }
+
+  .product-description {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.8;
+    color: var(--color-text, #0C0A09);
+  }
+
+  @media (max-width: 768px) {
+    .product-container {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    
+    .product-title {
+      font-size: 3rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Quantity selector
+    const quantityInput = document.querySelector('.quantity-input');
+    const minusButton = document.querySelector('.quantity-minus');
+    const plusButton = document.querySelector('.quantity-plus');
+    
+    minusButton.addEventListener('click', function() {
+      let currentValue = parseInt(quantityInput.value);
+      if (currentValue > 1) {
+        quantityInput.value = currentValue - 1;
+      }
+    });
+    
+    plusButton.addEventListener('click', function() {
+      let currentValue = parseInt(quantityInput.value);
+      quantityInput.value = currentValue + 1;
+    });
+  });
+</script>

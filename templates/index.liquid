@@ -1,0 +1,175 @@
+{% comment %}Éclat Doréa Home Page{% endcomment %}
+
+{% section 'announcement-bar' %}
+{% section 'header' %}
+
+<main class="main-content">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="page-width">
+      <div class="hero-content">
+        <h1 class="hero-title">Éclat Doréa Collection</h1>
+        <p class="hero-subtitle">Luxury Gold Jewelry for the Discerning</p>
+        <a href="{{ routes.collections_url }}" class="button button--primary">Shop Collection</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Collections -->
+  <section class="featured-section">
+    <div class="page-width">
+      <h2 class="section-title">Featured Collections</h2>
+      <div class="collections-grid">
+        <!-- Collection items will be added via theme editor -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="products-section">
+    <div class="page-width">
+      <h2 class="section-title">Featured Products</h2>
+      <div class="products-grid">
+        <!-- Product items will be added via theme editor -->
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="page-width">
+      <div class="about-content">
+        <h2 class="section-title">Crafting Excellence Since 1998</h2>
+        <p class="about-text">
+          Éclat Doréa represents the pinnacle of luxury gold jewelry craftsmanship. 
+          Each piece is meticulously handcrafted by our master artisans, blending 
+          traditional techniques with contemporary design.
+        </p>
+        <a href="/pages/about" class="button button--secondary">Our Story</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% section 'footer' %}
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, var(--color-primary, #1C1917) 0%, #2A2522 100%);
+    color: var(--color-text-inverse, #FFFFFF);
+    padding: 8rem 2rem;
+    text-align: center;
+  }
+  
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .hero-title {
+    font-family: 'Cormorant', serif;
+    font-size: 6rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: var(--color-accent, #CA8A04);
+  }
+  
+  .hero-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 300;
+    margin-bottom: 4rem;
+    opacity: 0.9;
+  }
+  
+  /* Section Styles */
+  .featured-section,
+  .products-section,
+  .about-section {
+    padding: 6rem 2rem;
+  }
+  
+  .section-title {
+    font-family: 'Cormorant', serif;
+    font-size: 4rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 4rem;
+    color: var(--color-primary, #1C1917);
+  }
+  
+  /* About Section */
+  .about-section {
+    background: var(--color-background-alt, #F5F5F4);
+  }
+  
+  .about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .about-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    color: var(--color-text, #0C0A09);
+  }
+  
+  /* Buttons */
+  .button {
+    display: inline-block;
+    padding: 1.5rem 3rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .button--primary {
+    background: var(--color-accent, #CA8A04);
+    color: var(--color-text-inverse, #FFFFFF);
+    border: 2px solid var(--color-accent, #CA8A04);
+  }
+  
+  .button--primary:hover {
+    background: transparent;
+    color: var(--color-accent, #CA8A04);
+  }
+  
+  .button--secondary {
+    background: transparent;
+    color: var(--color-primary, #1C1917);
+    border: 2px solid var(--color-primary, #1C1917);
+  }
+  
+  .button--secondary:hover {
+    background: var(--color-primary, #1C1917);
+    color: var(--color-text-inverse, #FFFFFF);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 4rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.8rem;
+    }
+    
+    .section-title {
+      font-size: 3rem;
+    }
+    
+    .featured-section,
+    .products-section,
+    .about-section {
+      padding: 4rem 1rem;
+    }
+  }
+</style>
