@@ -1,0 +1,42 @@
+# Shopify上传忽略文件
+# 这些文件不会上传到Shopify主题
+
+# 文档和指南文件
+*.md
+README.md
+BRAND_LOGO_GUIDE.md
+UPDATE_SUMMARY.md
+QUICK_UPLOAD.md
+upload_logo_guide.md
+logo_designs.md
+SVG_CONVERSION_GUIDE.md
+
+# 生成脚本
+create_logo.py
+create_logo_svg.py
+
+# 执行脚本
+execute_github_api.sh
+
+# Git相关
+.git/
+.gitignore
+
+# GitHub Actions
+.github/
+
+# 配置指南
+GITHUB_ACTIONS_SETUP.md
+
+# 生成的Logo文件（单独上传）
+logo_*.svg
+
+# 包管理
+package.json
+package-lock.json
+node_modules/
+
+# 其他临时文件
+*.log
+.DS_Store
+Thumbs.db

@@ -1,0 +1,68 @@
+name: Simple Shopify Theme Validation
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Validate Theme Structure
+      run: |
+        echo "🔍 验证Éclat Doréa主题结构"
+        echo "=========================="
+        
+        # 检查必要文件
+        required_files=(
+          "config/settings_schema.json"
+          "layout/theme.liquid"
+          "assets/css/global.css"
+          "snippets/logo.liquid"
+        )
+        
+        for file in "${required_files[@]}"; do
+          if [ -f "$file" ]; then
+            echo "✅ $file - 存在"
+          else
+            echo "❌ $file - 缺失"
+            exit 1
+          fi
+        done
+        
+        echo "✅ 主题结构验证通过"
+        
+    - name: Check File Sizes
+      run: |
+        echo "📊 文件大小检查"
+        echo "=============="
+        find . -name "*.liquid" -o -name "*.json" -o -name "*.css" -o -name "*.js" | xargs ls -lh | head -20
+        
+    - name: Generate Deployment Report
+      run: |
+        echo "📋 Éclat Doréa主题部署报告"
+        echo "========================="
+        echo "主题: Luxury Gold Jewelry Theme v2.0"
+        echo "品牌: Éclat Doréa collection"
+        echo "提交: ${{ github.sha }}"
+        echo "时间: $(date)"
+        echo ""
+        echo "🎨 包含功能:"
+        echo "- 奢侈品金饰配色系统"
+        echo "- Cormorant + Montserrat字体组合"
+        echo "- 品牌logo一致性系统"
+        echo "- 响应式设计和性能优化"
+        
+    - name: Success Notification
+      if: success()
+      run: |
+        echo "🎉 Éclat Doréa主题验证通过！"
+        echo ""
+        echo "🚀 下一步操作:"
+        echo "1. 手动上传 eclat-dorea-manual.zip 到Shopify"
+        echo "2. 或使用Shopify CLI: shopify theme push"
+        echo "3. 发布主题并测试效果"

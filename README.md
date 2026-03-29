@@ -18,6 +18,7 @@
 - Node.js 14.0+
 - Shopify CLI 3.0+
 - Git
+- GitHub Actions（可选，用于自动同步）
 
 ### 安装步骤
 

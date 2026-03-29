@@ -1,0 +1,665 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Custom Gold Jewelry Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Your Brand",
+    "theme_documentation_url": "https://help.yourbrand.com",
+    "theme_support_url": "https://support.yourbrand.com"
+  },
+  {
+    "name": "Brand Colors - Luxury Gold System",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary color (Dark)",
+        "default": "#1C1917",
+        "info": "Main brand color for headings and important elements"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Secondary color (Medium Dark)",
+        "default": "#44403C",
+        "info": "Secondary brand color for backgrounds and borders"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent color (Gold)",
+        "default": "#CA8A04",
+        "info": "Gold accent for buttons, links, and highlights - perfect for jewelry"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background color",
+        "default": "#FAFAF9",
+        "info": "Main background color for the site"
+      },
+      {
+        "type": "color",
+        "id": "color_background_alt",
+        "label": "Alternative background",
+        "default": "#F5F5F4",
+        "info": "Used for cards and sections with different background"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text color (Dark)",
+        "default": "#0C0A09",
+        "info": "Main text color for body content"
+      },
+      {
+        "type": "color",
+        "id": "color_text_light",
+        "label": "Light text color",
+        "default": "#78716C",
+        "info": "Used for secondary text and descriptions"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border color",
+        "default": "#D6D3D1",
+        "info": "Color for borders and dividers"
+      }
+    ]
+  },
+  {
+    "name": "Typography - Luxury Font Pairing",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading font (Cormorant recommended)",
+        "default": "cormorant_n4",
+        "info": "Serif font for luxury feel - Cormorant is perfect for jewelry brands"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font (Montserrat recommended)",
+        "default": "montserrat_n4",
+        "info": "Clean sans-serif for readability - Montserrat pairs well with Cormorant"
+      },
+      {
+        "type": "range",
+        "id": "font_size_base",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "Base font size",
+        "default": 16,
+        "info": "Main text size for body content"
+      },
+      {
+        "type": "range",
+        "id": "font_scale_ratio",
+        "min": 1.1,
+        "max": 1.4,
+        "step": 0.05,
+        "label": "Font scale ratio",
+        "default": 1.25,
+        "info": "Ratio for heading sizes - higher = more dramatic hierarchy"
+      },
+      {
+        "type": "header",
+        "content": "Advanced Typography"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_custom_fonts",
+        "label": "Enable custom Google Fonts",
+        "default": true,
+        "info": "Load Cormorant and Montserrat from Google Fonts"
+      },
+      {
+        "type": "text",
+        "id": "custom_font_url",
+        "label": "Custom font URL",
+        "default": "https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap",
+        "info": "URL for custom font loading"
+      }
+    ]
+  },
+  {
+    "name": "Brand Identity & Logo",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo Configuration"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Main logo image",
+        "info": "Upload your brand logo. Recommended: PNG with transparent background, min 300px width"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_light",
+        "label": "Light version logo (optional)",
+        "info": "For use on dark backgrounds. Leave empty to use main logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_dark",
+        "label": "Dark version logo (optional)",
+        "info": "For use on light backgrounds. Leave empty to use main logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_footer",
+        "label": "Footer logo (optional)",
+        "info": "Different logo for footer. Leave empty to use main logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "32x32px PNG for browser tabs"
+      },
+      {
+        "type": "header",
+        "content": "Logo Sizing & Display"
+      },
+      {
+        "type": "range",
+        "id": "logo_max_width",
+        "min": 80,
+        "max": 300,
+        "step": 10,
+        "unit": "px",
+        "label": "Header logo max width",
+        "default": 200,
+        "info": "Maximum width of logo in header"
+      },
+      {
+        "type": "range",
+        "id": "logo_max_height",
+        "min": 30,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Header logo max height",
+        "default": 60,
+        "info": "Maximum height of logo in header"
+      },
+      {
+        "type": "range",
+        "id": "footer_logo_width",
+        "min": 60,
+        "max": 200,
+        "step": 10,
+        "unit": "px",
+        "label": "Footer logo width",
+        "default": 120,
+        "info": "Width of logo in footer"
+      },
+      {
+        "type": "checkbox",
+        "id": "logo_center_header",
+        "label": "Center logo in header",
+        "default": false,
+        "info": "Center the logo instead of left-aligning"
+      },
+      {
+        "type": "checkbox",
+        "id": "logo_show_text",
+        "label": "Show text fallback if no logo",
+        "default": true,
+        "info": "Show store name if no logo is uploaded"
+      },
+      {
+        "type": "color",
+        "id": "logo_text_color",
+        "label": "Logo text color",
+        "default": "#1C1917",
+        "info": "Color for text fallback when no logo"
+      },
+      {
+        "type": "header",
+        "content": "Logo Effects & Animation"
+      },
+      {
+        "type": "checkbox",
+        "id": "logo_hover_effect",
+        "label": "Enable logo hover effect",
+        "default": true,
+        "info": "Add subtle animation on logo hover"
+      },
+      {
+        "type": "checkbox",
+        "id": "logo_reduce_motion",
+        "label": "Respect reduced motion preference",
+        "default": true,
+        "info": "Disable animations for users who prefer reduced motion"
+      },
+      {
+        "type": "select",
+        "id": "logo_hover_animation",
+        "label": "Logo hover animation",
+        "options": [
+          {
+            "value": "scale",
+            "label": "Scale up"
+          },
+          {
+            "value": "fade",
+            "label": "Fade"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ],
+        "default": "scale",
+        "info": "Animation type when hovering over logo"
+      },
+      {
+        "type": "link_list",
+        "id": "main_menu",
+        "label": "Main menu",
+        "default": "main-menu"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_search",
+        "label": "Show search bar",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cart_icon",
+        "label": "Show cart icon",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "sticky_header",
+        "label": "Enable sticky header",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_menu_1",
+        "label": "First footer menu",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_menu_2",
+        "label": "Second footer menu"
+      },
+      {
+        "type": "richtext",
+        "id": "footer_text",
+        "label": "Footer text",
+        "default": "<p>© 2024 Your Brand. All rights reserved.</p>"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_social_icons",
+        "label": "Show social icons",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Newsletter"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_newsletter",
+        "label": "Show newsletter signup",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "newsletter_title",
+        "label": "Newsletter title",
+        "default": "Stay Updated"
+      },
+      {
+        "type": "richtext",
+        "id": "newsletter_text",
+        "label": "Newsletter text",
+        "default": "<p>Subscribe to our newsletter for exclusive offers and updates.</p>"
+      }
+    ]
+  },
+  {
+    "name": "Home Page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Hero Section"
+      },
+      {
+        "type": "image_picker",
+        "id": "hero_image",
+        "label": "Hero image"
+      },
+      {
+        "type": "text",
+        "id": "hero_title",
+        "label": "Hero title",
+        "default": "Modern Gold Jewelry"
+      },
+      {
+        "type": "richtext",
+        "id": "hero_text",
+        "label": "Hero text",
+        "default": "<p>Handcrafted elegance for everyday luxury</p>"
+      },
+      {
+        "type": "text",
+        "id": "hero_button_text",
+        "label": "Button text",
+        "default": "Shop Collection"
+      },
+      {
+        "type": "url",
+        "id": "hero_button_link",
+        "label": "Button link"
+      },
+      {
+        "type": "header",
+        "content": "Featured Collections"
+      },
+      {
+        "type": "collection",
+        "id": "featured_collection_1",
+        "label": "First featured collection"
+      },
+      {
+        "type": "collection",
+        "id": "featured_collection_2",
+        "label": "Second featured collection"
+      },
+      {
+        "type": "collection",
+        "id": "featured_collection_3",
+        "label": "Third featured collection"
+      },
+      {
+        "type": "text",
+        "id": "featured_collections_title",
+        "label": "Section title",
+        "default": "Our Collections"
+      }
+    ]
+  },
+  {
+    "name": "Product Page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show vendor",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sku",
+        "label": "Show SKU",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_quantity_selector",
+        "label": "Show quantity selector",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_dynamic_checkout",
+        "label": "Enable dynamic checkout buttons",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show share buttons",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_description",
+        "label": "Show product description",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_reviews",
+        "label": "Show product reviews",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Show related products",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "related_products_count",
+        "min": 2,
+        "max": 8,
+        "step": 1,
+        "label": "Number of related products",
+        "default": 4
+      }
+    ]
+  },
+  {
+    "name": "Collection Page",
+    "settings": [
+      {
+        "type": "select",
+        "id": "collection_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "grid",
+            "label": "Grid"
+          },
+          {
+            "value": "list",
+            "label": "List"
+          }
+        ],
+        "default": "grid"
+      },
+      {
+        "type": "range",
+        "id": "products_per_page",
+        "min": 8,
+        "max": 48,
+        "step": 4,
+        "label": "Products per page",
+        "default": 16
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collection_image",
+        "label": "Show collection image",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collection_description",
+        "label": "Show collection description",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_sorting",
+        "label": "Enable sorting",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_filtering",
+        "label": "Enable filtering",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Cart Page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_continue_shopping",
+        "label": "Show continue shopping button",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_note_field",
+        "label": "Show note field",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_shipping_calculator",
+        "label": "Show shipping calculator",
+        "default": false
+      },
+      {
+        "type": "richtext",
+        "id": "cart_message",
+        "label": "Cart message",
+        "default": "<p>Free shipping on orders over $100</p>"
+      },
+      {
+        "type": "header",
+        "content": "Empty Cart"
+      },
+      {
+        "type": "text",
+        "id": "empty_cart_title",
+        "label": "Empty cart title",
+        "default": "Your cart is empty"
+      },
+      {
+        "type": "richtext",
+        "id": "empty_cart_text",
+        "label": "Empty cart text",
+        "default": "<p>Continue browsing <a href=\"/collections/all\">here</a>.</p>"
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook link"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter link"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram link"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest link"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok link"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube link"
+      }
+    ]
+  },
+  {
+    "name": "Checkout",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_order_notes",
+        "label": "Show order notes",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_gift_card",
+        "label": "Show gift card option",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "checkout_logo",
+        "label": "Checkout logo"
+      },
+      {
+        "type": "color",
+        "id": "checkout_accent_color",
+        "label": "Checkout accent color",
+        "default": "#d4af37"
+      }
+    ]
+  },
+  {
+    "name": "Announcement Bar",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_announcement",
+        "label": "Show announcement bar",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "announcement_text",
+        "label": "Announcement text",
+        "default": "Free shipping on orders over $100"
+      },
+      {
+        "type": "url",
+        "id": "announcement_link",
+        "label": "Announcement link"
+      },
+      {
+        "type": "color",
+        "id": "announcement_bg_color",
+        "label": "Background color",
+        "default": "#3a3a3a"
+      },
+      {
+        "type": "color",
+        "id": "announcement_text_color",
+        "label": "Text color",
+        "default": "#ffffff"
+      }
+    ]
+  }
+]

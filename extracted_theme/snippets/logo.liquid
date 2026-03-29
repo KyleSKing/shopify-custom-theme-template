@@ -1,0 +1,317 @@
+{%- comment -%}
+  Logo snippet for brand consistency
+  Uses Anthropic Frontend Design System principles
+  Version: 2.0.0
+{%- endcomment -%}
+
+{%- liquid
+  # Default logo settings
+  assign logo = section.settings.logo
+  assign logo_max_width = section.settings.logo_max_width | default: 200
+  assign logo_max_height = section.settings.logo_max_height | default: 60
+  assign logo_center_header = section.settings.logo_center_header
+  assign logo_show_text = section.settings.logo_show_text
+  assign logo_text_color = section.settings.logo_text_color | default: '#1C1917'
+  assign logo_hover_effect = section.settings.logo_hover_effect
+  assign logo_hover_animation = section.settings.logo_hover_animation
+  assign logo_reduce_motion = section.settings.logo_reduce_motion
+
+  # Determine if we should show text fallback
+  assign show_store_name = false
+  if logo_show_text and logo == blank
+    assign show_store_name = true
+  endif
+
+  # Logo wrapper classes
+  assign logo_classes = 'logo-wrapper'
+  if logo_center_header
+    assign logo_classes = logo_classes | append: ' logo-wrapper--center'
+  endif
+
+  if logo_hover_effect and logo_hover_animation != 'none'
+    assign logo_classes = logo_classes | append: ' logo-wrapper--hover-' | append: logo_hover_animation
+  endif
+
+  # Logo image classes
+  assign logo_img_classes = 'logo'
+  if template.name == 'index'
+    assign logo_img_classes = logo_img_classes | append: ' logo--hero'
+  elsif section.id == 'header'
+    assign logo_img_classes = logo_img_classes | append: ' logo--header'
+  elsif section.id == 'footer'
+    assign logo_img_classes = logo_img_classes | append: ' logo--footer'
+  endif
+
+  if logo_reduce_motion
+    assign logo_img_classes = logo_img_classes | append: ' reduce-motion'
+  endif
+-%}
+
+<div class="{{ logo_classes }}" 
+     style="
+       --logo-max-width: {{ logo_max_width }}px;
+       --logo-max-height: {{ logo_max_height }}px;
+       --logo-text-color: {{ logo_text_color }};
+     "
+     data-logo-wrapper>
+  
+  {%- if logo != blank -%}
+    {%- comment -%}Logo image exists{%- endcomment -%}
+    <a href="{{ routes.root_url }}" class="logo-link" aria-label="{{ shop.name }}">
+      <img src="{{ logo | img_url: 'master' }}"
+           class="{{ logo_img_classes }}"
+           alt="{{ shop.name }}"
+           width="{{ logo.width }}"
+           height="{{ logo.height }}"
+           loading="eager"
+           style="
+             max-width: {{ logo_max_width }}px;
+             max-height: {{ logo_max_height }}px;
+             width: auto;
+             height: auto;
+           "
+           data-logo-image>
+    </a>
+  
+  {%- elsif show_store_name -%}
+    {%- comment -%}Show store name as text fallback{%- endcomment -%}
+    <a href="{{ routes.root_url }}" class="logo-text" aria-label="{{ shop.name }}">
+      <span class="logo-text__name" style="color: {{ logo_text_color }};">
+        {{ shop.name }}
+      </span>
+      {%- if shop.description != blank -%}
+        <span class="logo-text__tagline">
+          {{ shop.description }}
+        </span>
+      {%- endif -%}
+    </a>
+  
+  {%- else -%}
+    {%- comment -%}Show placeholder logo{%- endcomment -%}
+    <a href="{{ routes.root_url }}" class="logo-placeholder-container" aria-label="{{ shop.name }}">
+      <div class="logo-placeholder {% if logo_reduce_motion %}animated{% endif %}">
+        {{ shop.name | slice: 0, 2 | upcase }}
+      </div>
+    </a>
+  
+  {%- endif -%}
+</div>
+
+{%- style -%}
+  /* Logo wrapper styles */
+  .logo-wrapper {
+    display: flex;
+    align-items: center;
+    transition: all var(--transition);
+  }
+
+  .logo-wrapper--center {
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  /* Logo link styles */
+  .logo-link {
+    display: inline-block;
+    transition: all var(--transition);
+  }
+
+  /* Logo image styles */
+  .logo {
+    display: block;
+    object-fit: contain;
+    transition: all var(--transition);
+  }
+
+  /* Logo hover effects */
+  .logo-wrapper--hover-scale .logo-link:hover .logo {
+    transform: scale(1.05);
+  }
+
+  .logo-wrapper--hover-fade .logo-link:hover .logo {
+    opacity: 0.9;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .logo-wrapper.reduce-motion,
+    .logo.reduce-motion {
+      transition: none !important;
+      animation: none !important;
+    }
+
+    .logo-wrapper--hover-scale .logo-link:hover .logo,
+    .logo-wrapper--hover-fade .logo-link:hover .logo {
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
+
+  /* Logo text fallback styles */
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: all var(--transition);
+  }
+
+  .logo-text__name {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .logo-text__tagline {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-text-light);
+    margin-top: 2px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .logo-text:hover .logo-text__name {
+    opacity: 0.8;
+  }
+
+  /* Logo placeholder styles */
+  .logo-placeholder-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  .logo-placeholder {
+    width: {{ logo_max_width }}px;
+    height: {{ logo_max_height }}px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all var(--transition);
+  }
+
+  .logo-placeholder:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Responsive logo sizing */
+  @media (max-width: 768px) {
+    .logo-text__name {
+      font-size: var(--text-xl);
+    }
+
+    .logo-placeholder {
+      width: calc({{ logo_max_width }}px * 0.8);
+      height: calc({{ logo_max_height }}px * 0.8);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .logo-text__name {
+      font-size: var(--text-lg);
+    }
+
+    .logo-placeholder {
+      width: calc({{ logo_max_width }}px * 0.6);
+      height: calc({{ logo_max_height }}px * 0.6);
+      font-size: 18px;
+    }
+  }
+{%- endstyle -%}
+
+{%- schema -%}
+{
+  "name": "Logo Settings",
+  "class": "section-logo",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image",
+      "info": "Recommended: PNG with transparent background, 400x120px"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo maximum width",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "logo_max_height",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo maximum height",
+      "default": 60
+    },
+    {
+      "type": "checkbox",
+      "id": "logo_center_header",
+      "label": "Center logo in header",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "logo_show_text",
+      "label": "Show store name if no logo",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "logo_text_color",
+      "label": "Logo text color",
+      "default": "#1C1917"
+    },
+    {
+      "type": "checkbox",
+      "id": "logo_hover_effect",
+      "label": "Enable logo hover effect",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "logo_hover_animation",
+      "label": "Logo hover animation",
+      "options": [
+        {
+          "value": "scale",
+          "label": "Scale up"
+        },
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "scale"
+    },
+    {
+      "type": "checkbox",
+      "id": "logo_reduce_motion",
+      "label": "Respect reduced motion preference",
+      "default": true
+    }
+  ]
+}
+{%- endschema -%}

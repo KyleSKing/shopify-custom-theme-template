@@ -1,0 +1,8 @@
+# Shopify上传忽略文件
+*.md
+*.py
+*.sh
+.git/
+.github/
+logo_*.svg
+node_modules/
